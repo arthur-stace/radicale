@@ -22,6 +22,5 @@ run:
 		#
 
 
-calendar:
-	${MAKE} -e DOMAIN=$(DOMAIN) -e STAGE=$(STAGE)
+calendar: default
 
