@@ -5,6 +5,7 @@ RUN apk add util-linux
 
 WORKDIR /
 
+COPY production.mk $WORKDIR
 COPY Makefile $WORKDIR
 COPY .Radicale.props.jq $WORKDIR
 
