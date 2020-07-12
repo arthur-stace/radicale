@@ -1,12 +1,20 @@
 JQ = $(shell which jq)
-COLLECTION_ROOT = $(APPLICATION)/data/collections/collection-root
+USER = admin
+COLLECTION_ROOT = data/collections/collection-root
+
+STAGE = development
+
+include $(STAGE).mk
 
 
-default: extract
+default: extract data/collections/.Radicale.lock
+
+data/collections/.Radicale.lock:
+	touch $@
 
 
 
-extract: $(COLLECTION_ROOT)/user/$(DOMAIN)/.Radicale.props
+extract: $(COLLECTION_ROOT)/$(USER)/$(DOMAIN)/.Radicale.props
 
 
 
@@ -15,15 +23,9 @@ $(COLLECTION_ROOT):
 
 
 
-$(COLLECTION_ROOT)/user/%/.Radicale.props: $(COLLECTION_ROOT)
-	rm -f $@
-	mkdir -p `dirname $@`
-	$(JQ) -nc  --arg name $(DOMAIN) --arg desc $(DOMAIN) --arg color '#000000' -f `basename $@`.jq > $@
-
-
-
-build:
-	docker build -t radicale:latest .
-
-
+$(COLLECTION_ROOT)/$(USER)/%/.Radicale.props: $(COLLECTION_ROOT)
+	@rm -f $@
+	@mkdir -p `dirname $@`
+	@$(JQ) -nc  --arg name $(DOMAIN) --arg desc $(DOMAIN) --arg color '#000000' -f `basename $@`.jq > $@
+	$(JQ) < $@
 
