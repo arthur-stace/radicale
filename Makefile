@@ -32,8 +32,11 @@ $(COLLECTION_ROOT)/user/%/.Radicale.props: $(COLLECTION_ROOT)
 
 
 build:
-	docker build -t radicale:latest .
+	docker build -t radical:latest .
+
+run: build
+	docker run --rm -p 5432:5432 radical:latest
 
 
 $(APPLICATION_ENVIRONMENT)/bookmarks-%.json:
-	@cat $@ | jq -Rf bookmarks.jq
+	@cat $@ | jq -rf bookmarks.jq
