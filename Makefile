@@ -1,3 +1,4 @@
+APPLICATION_ENVIRONMENT ?= test
 HEROKU_APP ?= fixme
 JQ = $(shell which jq)
 COLLECTION_ROOT = $(APPLICATION)/data/collections/collection-root
@@ -34,4 +35,5 @@ build:
 	docker build -t radicale:latest .
 
 
-
+$(APPLICATION_ENVIRONMENT)/bookmarks-%.json:
+	@cat $@ | jq -f bookmarks.jq
