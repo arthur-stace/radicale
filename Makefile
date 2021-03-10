@@ -37,6 +37,11 @@ build:
 run: build
 	docker run --rm -p 5432:5432 radical:latest
 
+.PHONY: image.pkr.hcl
+
+image.pkr.hcl:
+	packer build $@
+
 
 $(APPLICATION_ENVIRONMENT)/bookmarks-%.json:
 	@cat $@ | jq -rf bookmarks.jq
