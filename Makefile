@@ -36,4 +36,4 @@ build:
 
 
 $(APPLICATION_ENVIRONMENT)/bookmarks-%.json:
-	@cat $@ | jq -f bookmarks.jq
+	@cat $@ | jq -Rf bookmarks.jq
