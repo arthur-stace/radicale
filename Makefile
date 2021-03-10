@@ -1,5 +1,13 @@
+HEROKU_APP ?= fixme
 JQ = $(shell which jq)
 COLLECTION_ROOT = $(APPLICATION)/data/collections/collection-root
+
+%.plan: init
+	terraform plan -out $@
+
+init:
+	terraform $@
+
 
 
 default: extract
